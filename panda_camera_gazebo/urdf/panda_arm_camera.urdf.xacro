@@ -28,7 +28,7 @@
   </xacro:unless>
 
   <!-- note: this only works if load_gripper = true -->
-  <xacro:sensor_d435_gazebo name="d435" parent="panda_hand" infra1="false" infra2="false">
+  <xacro:sensor_d435_gazebo name="d435" parent="panda_hand">
     <origin xyz="0.05 0 0" rpy="${pi} ${-pi/2} 0"/>
   </xacro:sensor_d435_gazebo>
 </robot>

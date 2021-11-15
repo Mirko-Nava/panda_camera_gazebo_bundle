@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <world name="default">
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+
+    <include>
+      <uri>model://sun</uri>
+    </include>
+
+    <physics type="ode">
+      <real_time_update_rate>1000.0</real_time_update_rate>
+    </physics>
+    
+    <gravity>
+      0.0 0.0 0.0
+    </gravity>
+
+    <gui fullscreen='0'>
+    </gui>
+
+    <population name="beers_population">
+      <model name="beer">
+        <include>
+          <static>true</static>
+          <uri>model://beer</uri>
+        </include>
+      </model>
+      <pose>0.2 -0.4 0 0 0 0</pose>
+      <box>
+        <size>0.8 0.8 0.01</size>
+      </box>
+      <model_count>16</model_count>
+      <distribution>
+        <type>random</type>
+      </distribution>
+    </population>
+
+  </world>
+</sdf>

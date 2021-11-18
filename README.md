@@ -13,7 +13,7 @@ The software is tested on Ubuntu 18.04.6 LTS x86_64 with ROS Melodic and Python 
 
 ## Singularity
 
-To alleviate the burden of installing everything from scratch, i also provide a singularity container definition file.
+To alleviate the burden of installing everything from scratch, i also provide a singularity container definition file [here](https://github.com/Mirko-Nava/panda_camera_gazebo_bundle/blob/main/container.def).
 The container consists in a Ubuntu 18.04 system with the following installed.
 
 - ZSH

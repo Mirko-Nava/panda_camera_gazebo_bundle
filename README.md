@@ -9,7 +9,7 @@ A bundle of ros packages used to simulate a [panda robotic arm](https://www.fran
 - ros-melodic-realsense2-description
 - https://github.com/justagist/panda_simulator
 
-The software is tested on Ubuntu 18.04.6 LTS x86_64 with ROS Melodic and Python 2.7.
+The software is tested on Ubuntu 18.04.6 LTS x86_64 with ROS Melodic, Gazebo 9 and Python 2.7.
 
 ## Singularity
 

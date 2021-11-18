@@ -1,0 +1,133 @@
+Bootstrap: docker
+From: nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+
+%setup
+
+%files
+
+%post
+
+# set timezone to Zurich & prevent tzdata to run in interactive mode
+ln -snf /usr/share/zoneinfo/Europe/Zurich /etc/localtime && echo Europe/Zurich > /etc/timezone
+
+# fake display for gazebo https://answers.gazebosim.org//question/14625/running-a-camera-sensor-headless/
+apt-get update && apt-get install -y xvfb 
+
+printf "\n\n\n\n\n\n\n\n\n \033[0;41m  APT INSTALL  \033[0m \n\n\n\n\n\n\n\n\n"
+
+apt-get update && apt-get install -y \
+  locales language-pack-en \
+  ubuntu-dbgsym-keyring \
+  fonts-powerline \
+  lsb-release \
+  dirmngr \
+  curl \
+  tree \
+  wget \
+  nano \
+  zsh \
+  gdb \
+  git \
+  xclip \
+  ffmpeg \
+  vmtouch \
+  git-lfs \
+  hdf5-tools \
+  python-pip \
+  python2.7-dev
+
+printf "\n\n\n\n\n\n\n\n\n \033[0;41m  ROS INSTALL  \033[0m \n\n\n\n\n\n\n\n\n"
+
+sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | apt-key add -
+apt-get update && apt-get install -y \
+  ros-melodic-desktop-full \
+  libcppunit-dev \
+  libgazebo9-dev \
+  python-rosdep \
+  python-wstool \
+  python-catkin-tools
+
+rosdep init
+rosdep update
+
+# dependencies for https://github.com/justagist/panda_simulator
+apt-get update && apt-get install -y \
+  ros-melodic-libfranka \
+  ros-melodic-franka-ros \
+  ros-melodic-panda-moveit-config \
+  ros-melodic-gazebo-ros-control \
+  ros-melodic-rospy-message-converter \
+  ros-melodic-effort-controllers \
+  ros-melodic-joint-state-controller \
+  ros-melodic-moveit \
+  ros-melodic-moveit-commander \
+  ros-melodic-moveit-visual-tools
+
+# dependencies for https://github.com/Mirko-Nava/panda_camera_gazebo_bundle
+apt-get update && apt-get install -y \
+  ros-melodic-librealsense2 \
+  ros-melodic-realsense2-camera \
+  ros-melodic-realsense2-description
+
+printf "\n\n\n\n\n\n\n\n\n \033[0;41m  ZSHINSTALL  \033[0m \n\n\n\n\n\n\n\n\n"
+
+sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+
+printf "\n\n\n\n\n\n\n\n\n \033[0;41m PYTHON INSTALL \033[0m \n\n\n\n\n\n\n\n\n"
+
+python2.7 -m pip install --upgrade \
+  pip \
+  setuptools
+
+python2.7 -m pip install \
+  -f https://download.pytorch.org/whl/torch_stable.html \
+  torch==1.4.0+cu92 \
+  torchvision==0.5.0+cu92
+
+python2.7 -m pip install \
+  pep8 \
+  tqdm \
+  h5py \
+  keras \
+  numpy \
+  scipy \
+  pandas \
+  plotly \
+  seaborn \
+  sklearn \
+  xgboost \
+  virtualenv \
+  matplotlib \
+  ffmpeg-python \
+  torchsummary==1.5.1 \
+  opencv-contrib-python \
+  numpy-quaternion==2020.5.11.13.33.35 \
+  # albumentations \
+
+%environment
+
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+export LANGUAGE="en_US.UTF-8"
+export CUDA_VISIBLE_DEVICES="0"
+export CUDA_DEVICE_ORDER="PCI_BUS_ID"
+
+export DISPLAY=":1.0"
+export INSIDE_CONTAINER_ROS="1"
+export ROS_HOSTNAME="localhost"
+export ROS_MASTER_URI="http://localhost:11311"
+
+%runscript
+
+%startscript
+
+%test
+
+printf "\n \033[0;41m     TEST     \033[0m "
+printf "\n \033[0;41m      OK      \033[0m \n"
+
+%labels
+
+%help
+ZSH + Python 2.7 + ROS Melodic + Gazebo 9 + PyTorch 1.4.0 w/ CUDA

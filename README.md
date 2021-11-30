@@ -24,13 +24,11 @@ The container consists in a Ubuntu 18.04 system with the following installed.
 
 It requires a binding between the container's home folder and the host's home folder, in which it will install the catkin workspace and the required ros packages.
 
-The definition file is tested with singulairty 3.6.4 on Ubuntu 18.04.6 LTS x86_64.
-<!-- singularity-ce version 3.9.1 -->
+The definition file is tested with singularity-ce version 3.9.1 on Ubuntu 18.04.6 LTS x86_64.
 
 #### Installing singulairty
 
-Please follow the instructions [here](https://sylabs.io/guides/3.6/user-guide/quick_start.html).
-<!-- [here](https://sylabs.io/guides/3.9/user-guide/quick_start.html) -->
+Please follow the instructions [here](https://sylabs.io/guides/3.9/user-guide/quick_start.html).
 
 #### Running the container
 

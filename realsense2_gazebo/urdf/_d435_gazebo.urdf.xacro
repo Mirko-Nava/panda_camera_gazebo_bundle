@@ -9,11 +9,11 @@
       <xacro:insert_block name="origin" />
     </xacro:sensor_d435>
 
-    <gazebo reference="${name}_link">
-
-      <!-- color gazebo plugin -->
+    <!-- color gazebo plugin -->
       <xacro:if value="${color}">
+        <gazebo reference="${name}_color_frame">
         <sensor type="camera" name="${name}_color">
+          <parent link="${name}_color_optical_frame" />
           <update_rate>${fps}</update_rate>
           <camera>
             <horizontal_fov>${69.4 * M_PI/180.0}</horizontal_fov>
@@ -34,11 +34,14 @@
             <frameName>${name}_color_optical_frame</frameName>
           </plugin>
         </sensor>
+        </gazebo>
       </xacro:if>
 
       <!-- infra1 gazebo plugin -->
       <xacro:if value="${infra1}">
+        <gazebo reference="${name}_infra1_frame">
         <sensor type="depth" name="${name}_infra1">
+          <parent link="${name}_infra1_optical_frame" />
           <update_rate>${fps}</update_rate>
           <camera>
             <horizontal_fov>${69.4 * M_PI/180.0}</horizontal_fov>
@@ -63,11 +66,14 @@
             <pointCloudCutoff>0.5</pointCloudCutoff>
           </plugin>
         </sensor>
+        </gazebo>
       </xacro:if>
 
       <!-- infra2 gazebo plugin -->
       <xacro:if value="${infra2}">
+        <gazebo reference="${name}_infra2_frame">
         <sensor type="depth" name="${name}_infra2">
+          <parent link="${name}_infra2_optical_frame" />
           <update_rate>${fps}</update_rate>
           <camera>
             <horizontal_fov>${69.4 * M_PI/180.0}</horizontal_fov>
@@ -92,7 +98,7 @@
             <pointCloudCutoff>0.5</pointCloudCutoff>
           </plugin>
         </sensor>
+        </gazebo>
       </xacro:if>
-    </gazebo>
   </xacro:macro>
 </robot>

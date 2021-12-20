@@ -1,34 +1,31 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="panda">
   <xacro:arg name="robot_name" default="panda"/>
-  <xacro:arg name="load_gripper" default="true"/>
   <xacro:arg name="load_gazebo" default="false"/>
   <xacro:arg name="use_gazebo_control" default="false"/>
-  <xacro:arg name="connected_to" default=""/> <!-- If using a different frame with ${connected_to} param, make sure 'world' frame exists in the TF tree -->
+  <xacro:arg name="connected_to" default=""/> 
   
   <xacro:include filename="$(find franka_panda_description)/robots/panda_arm.xacro"/>
   <xacro:include filename="$(find realsense2_gazebo)/urdf/_d435_gazebo.urdf.xacro" />
 
-  <xacro:if value="$(arg load_gripper)">
-    <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
-    <xacro:hand ns="panda" rpy="0 0 ${-pi/4}" connected_to="panda_link8"/>
-  </xacro:if>
+  <xacro:include filename="$(find franka_panda_description)/robots/hand.xacro"/>
+  <xacro:hand ns="panda" rpy="0 0 ${-pi/4}" connected_to="panda_link8"/>
 
   <xacro:if value="$(arg load_gazebo)">  
     <xacro:include filename="$(find franka_panda_description)/robots/panda.gazebo.xacro"/>
     <xacro:include filename="$(find franka_panda_description)/robots/panda.transmission.xacro"/>
     
     <xacro:panda_arm in_gazebo="true"  connected_to="$(arg connected_to)"/>
-    <xacro:panda_gazebo robot_name="$(arg robot_name)" load_gripper="$(arg load_gripper)"/>
-    <xacro:panda_transmission robot_name="$(arg robot_name)" load_gripper="$(arg load_gripper)" use_gazebo_control="$(arg use_gazebo_control)"/>
+    <xacro:panda_gazebo robot_name="$(arg robot_name)" load_gripper="true"/>
+    <xacro:panda_transmission robot_name="$(arg robot_name)" load_gripper="true" use_gazebo_control="$(arg use_gazebo_control)"/>
   </xacro:if>
 
   <xacro:unless value="$(arg load_gazebo)">  
     <xacro:panda_arm />
   </xacro:unless>
 
-  <!-- note: this only works if load_gripper = true -->
-  <xacro:sensor_d435_gazebo name="d435" parent="panda_hand">
+  <!-- note: this only works with load_gripper = true -->
+  <xacro:sensor_d435_gazebo name="d435" parent="panda_hand" infra1="false" infra2="false">
     <origin xyz="0.05 0 0" rpy="${pi} ${-pi/2} 0"/>
   </xacro:sensor_d435_gazebo>
 </robot>

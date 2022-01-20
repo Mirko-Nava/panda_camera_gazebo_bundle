@@ -99,11 +99,14 @@ python2.7 -m pip install \
   xgboost \
   virtualenv \
   matplotlib \
+  imgaug==0.2.7 \
+  imageio==2.6.0 \
   ffmpeg-python \
   torchsummary==1.5.1 \
   opencv-contrib-python \
-  numpy-quaternion==2020.5.11.13.33.35 \
-  # albumentations \
+  numpy-quaternion==2020.5.11.13.33.35
+
+python2.7 -m pip install albumentations==0.4.3 --no-deps 
 
 %environment
 

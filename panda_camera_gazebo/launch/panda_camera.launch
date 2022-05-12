@@ -16,7 +16,6 @@
   <arg name="world_name" default="panda"/>
 
   <arg name="ns" default="panda_simulator"/>
-  <!-- TODO: This argument should load the electric gripper -->
 
   <!-- This argument fixes the robot statically to the world -->
   <arg name="static" default="true"/>
@@ -36,9 +35,7 @@
 
   <rosparam command="load" file="$(find panda_gazebo)/config/robot_details.yaml"/>
 
-
   <param name="robot_description" command="$(find xacro)/xacro $(find panda_camera_gazebo)/urdf/panda_arm_camera.urdf.xacro load_gripper:=$(arg load_gripper) load_gazebo:=$(arg load_gazebo)"/>
-
 
   <param name="/arm/root_name" value="panda_link0" />
   <param if="$(arg load_gripper)" name="/arm/tip_name" value="panda_hand" /> 

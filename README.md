@@ -53,6 +53,7 @@ source /opt/ros/melodic/setup.zsh
 catkin init
 catkin build
 source $HOME/catkin_ws/devel/setup.zsh
+rosdep update
 cd src
 git clone -b melodic-devel https://github.com/justagist/panda_simulator
 cd panda_simulator
